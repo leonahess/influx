@@ -1,0 +1,13 @@
+- hosts: Pi4
+  tasks:
+    - name: Running the Container
+      docker_container:
+        image: fx8350:5000/influx:arm
+        name: influxdb
+        state: started
+        restart_policy: always
+        force_kill: no
+        pull: yes
+        hostname: "{{ ansible_hostname }}"
+        volumes:
+          - influx-storage:/var/lib/influxdb
