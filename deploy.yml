@@ -13,3 +13,20 @@
         hostname: "{{ ansible_hostname }}"
         volumes:
           - influx-storage:/var/lib/influxdb
+
+- hosts: 127.0.0.1
+  connection: local
+  tasks:
+    - name: Running the Container
+      docker_container:
+        image: fx8350:5000/influx:amd64
+        name: influxdb
+        state: started
+        restart_policy: always
+        force_kill: no
+        ports:
+          - "8086:8086"
+        pull: yes
+        hostname: "{{ ansible_hostname }}"
+        volumes:
+          - influx-storage:/var/lib/influxdb
